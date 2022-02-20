@@ -167,8 +167,8 @@ bool compare_lists(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
 
 // merge-two-sorted-linked-lists 
 SinglyLinkedListNode* mergeLists(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
-    SinglyLinkedListNode* sorting;
-    SinglyLinkedListNode* head;
+    SinglyLinkedListNode* sorting = NULL;
+    SinglyLinkedListNode* head = NULL;
     if (head1 == NULL) { return head2; }
     if (head2 == NULL) { return head1; }
     if (head1 && head2) {
@@ -221,7 +221,180 @@ int getNode(SinglyLinkedListNode* head, int positionFromTail) {
 }
 
 // delete-duplicate-value-nodes-from-a-sorted-linked-list  
+SinglyLinkedListNode* removeDuplicates(SinglyLinkedListNode* head) {
+    SinglyLinkedListNode* curr = head;
+    SinglyLinkedListNode* temp = NULL;
+    while (curr->next != NULL) {
+        if (curr->data == curr->next->data) {
+            temp = curr->next->next;
+            delete curr->next;
+            curr->next = temp;
+        }
+        else {
+            curr = curr->next;
+        }
+    }
+    return head;
 
+}
+// has_cycle function 
+
+bool has_cycle(SinglyLinkedListNode* head) {
+    SinglyLinkedListNode* temp1 = head;
+    SinglyLinkedListNode* temp2 = head;
+
+    while (temp1 && temp2 && temp2->next)
+    {
+        temp1 = temp1->next;
+        temp2 = temp2->next->next;
+
+        if (temp1 == temp2)
+        {
+            return 1;
+        }
+    }
+    return 0;
+
+
+}
+class DoublyLinkedListNode {
+public:
+    int data;
+    DoublyLinkedListNode* next;
+    DoublyLinkedListNode* prev;
+
+    DoublyLinkedListNode(int node_data) {
+        this->data = node_data;
+        this->next = nullptr;
+        this->prev = nullptr;
+    }
+};
+class DoublyLinkedList {
+public:
+    DoublyLinkedListNode* head;
+    DoublyLinkedListNode* tail;
+
+    DoublyLinkedList() {
+        this->head = nullptr;
+        this->tail = nullptr;
+    }
+
+    void insert_node(int node_data) {
+        DoublyLinkedListNode* node = new DoublyLinkedListNode(node_data);
+
+        if (!this->head) {
+            this->head = node;
+        }
+        else {
+            this->tail->next = node;
+            node->prev = this->tail;
+        }
+
+        this->tail = node;
+    }
+};
+// some errors here 
+//void print_doubly_linked_list(DoublyLinkedListNode* node, string sep, ofstream& fout) {
+//    while (node) {
+//        fout << node->data;
+//
+//        node = node->next;
+//
+//        if (node) {
+//            fout << sep;
+//        }
+//    }
+//}
+
+void free_doubly_linked_list(DoublyLinkedListNode* node) {
+    while (node) {
+        DoublyLinkedListNode* temp = node;
+        node = node->next;
+
+        free(temp);
+    }
+}
+
+int getCount(SinglyLinkedListNode* head) {
+    SinglyLinkedListNode* curr = head;
+    int counter = 0;
+    while (curr != NULL) {
+        counter++;
+        curr = curr->next;
+    }
+    return counter;
+}
+int getNode(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2, int d) {
+    SinglyLinkedListNode* curr1 = head1;
+    SinglyLinkedListNode* curr2 = head2;
+    for (int i = 0; i < d; i++) {
+        if (curr1 == NULL) return 0;
+        curr1 = curr1->next;
+    }
+    while (curr1 != NULL && curr2 != NULL) {
+        if (curr1 == curr2) return curr1->data;
+        curr1 = curr1->next;
+        curr2 = curr2->next;
+    }
+    return 0;
+}
+int getCount(DoublyLinkedListNode* head) {
+    DoublyLinkedListNode* curr = head;
+    int counter = 0;
+    while (curr != NULL) {
+        counter++;
+        curr = curr->next;
+    }
+    return counter;
+}
+DoublyLinkedListNode* insertfirst(DoublyLinkedListNode* head, int data) {
+    DoublyLinkedListNode* it = new  DoublyLinkedListNode(data);
+    it->next = head;
+    head->prev = it;
+    it->prev = NULL;
+    head = it;
+    return head;
+}
+DoublyLinkedListNode* insertInternal(DoublyLinkedListNode* head, int data) {
+    DoublyLinkedListNode* curr = head;
+    DoublyLinkedListNode* it = new  DoublyLinkedListNode(data);
+    DoublyLinkedListNode* temp;
+    temp = curr->next;
+    curr->next = it;
+    it->prev = curr;
+    it->next = temp;
+    temp->prev = it;
+    return head;
+}
+DoublyLinkedListNode* insertlast(DoublyLinkedListNode* head, int data) {
+    DoublyLinkedListNode* curr = head;
+    DoublyLinkedListNode* it = new  DoublyLinkedListNode(data);
+    int length = getCount(head);
+    for (int i = 0; i < length; i++) {
+        if (curr->next->data > it->data) {
+            insertInternal(head, data);
+        }
+    }
+    return head;
+}
+
+// reverse function Doubly Linked List 
+DoublyLinkedListNode* reverse(DoublyLinkedListNode* head) {
+    DoublyLinkedListNode* ptr1 = head;
+    DoublyLinkedListNode* ptr2 = head->next;
+
+    ptr1->next = NULL;
+    ptr1->prev = ptr2;
+
+    while (ptr2 != NULL) {
+        ptr2->prev = ptr2->next;
+        ptr2->next = ptr1;
+        ptr1 = ptr2;
+        ptr2 = ptr2->prev;
+    }
+    head = ptr1;
+    return head;
+}
 
 int main()
 {
@@ -533,7 +706,119 @@ int main()
 //fout.close(); 
                  
 
-               // delete-duplicate-value-nodes-from-a-sorted-linked-list 
+               // delete-duplicate-value-nodes-from-a-sorted-linked-list    some errors here 
+//ofstream fout(getenv("OUTPUT_PATH"));
+//
+//int t;
+//cin >> t;
+//cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//
+//for (int t_itr = 0; t_itr < t; t_itr++) {
+//    SinglyLinkedList* llist = new SinglyLinkedList();
+//
+//    int llist_count;
+//    cin >> llist_count;
+//    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//
+//    for (int i = 0; i < llist_count; i++) {
+//        int llist_item;
+//        cin >> llist_item;
+//        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//
+//        llist->insert_node(llist_item);
+//    }
+//
+//    SinglyLinkedListNode* llist1 = removeDuplicates(llist->head);
+//
+//    print_singly_linked_list(llist1, " ", fout);
+//    fout << "\n";
+//
+//    free_singly_linked_list(llist1);
+//}
+//
+//fout.close();
+                
+                 // has_cycle function main    some errors here 
+
+//ofstream fout(getenv("OUTPUT_PATH"));
+//
+//int tests;
+//cin >> tests;
+//cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//
+//for (int tests_itr = 0; tests_itr < tests; tests_itr++) {
+//    int index;
+//    cin >> index;
+//    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//
+//    SinglyLinkedList* llist = new SinglyLinkedList();
+//
+//    int llist_count;
+//    cin >> llist_count;
+//    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//
+//    for (int i = 0; i < llist_count; i++) {
+//        int llist_item;
+//        cin >> llist_item;
+//        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//
+//        llist->insert_node(llist_item);
+//    }
+//
+//    SinglyLinkedListNode* extra = new SinglyLinkedListNode(-1);
+//    SinglyLinkedListNode* temp = llist->head;
+//
+//    for (int i = 0; i < llist_count; i++) {
+//        if (i == index) {
+//            extra = temp;
+//        }
+//
+//        if (i != llist_count - 1) {
+//            temp = temp->next;
+//        }
+//    }
+//
+//    temp->next = extra;
+//
+//    bool result = has_cycle(llist->head);
+//
+//    fout << result << "\n";
+//}
+//
+//fout.close();
+
+
+               // reverse function Doubly Linked List 
+//ofstream fout(getenv("OUTPUT_PATH"));
+//
+//int t;
+//cin >> t;
+//cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//
+//for (int t_itr = 0; t_itr < t; t_itr++) {
+//    DoublyLinkedList* llist = new DoublyLinkedList();
+//
+//    int llist_count;
+//    cin >> llist_count;
+//    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//
+//    for (int i = 0; i < llist_count; i++) {
+//        int llist_item;
+//        cin >> llist_item;
+//        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//
+//        llist->insert_node(llist_item);
+//    }
+//
+//    DoublyLinkedListNode* llist1 = reverse(llist->head);
+//
+//    print_doubly_linked_list(llist1, " ", fout);
+//    fout << "\n";
+//
+//    free_doubly_linked_list(llist1);
+//}
+//
+//fout.close();
 
 
 	return 0; 
