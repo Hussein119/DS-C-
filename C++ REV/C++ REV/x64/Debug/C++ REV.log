@@ -1,0 +1,4 @@
+﻿  C++ REV.cpp
+E:\SW Engineering\Eng Ahmed Hosny mentorship\C++ REV\C++ REV\C++ REV.cpp(142,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+E:\SW Engineering\Eng Ahmed Hosny mentorship\C++ REV\C++ REV\C++ REV.cpp(169,13): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  C++ REV.vcxproj -> E:\SW Engineering\Eng Ahmed Hosny mentorship\C++ REV\x64\Debug\C++ REV.exe
