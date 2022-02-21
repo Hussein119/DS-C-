@@ -1,4 +1,4 @@
 ﻿  Linear Structures.cpp
-  Linkedlist.cpp
+  Stack.cpp
   Generating Code...
-  Linear Structures.vcxproj -> E:\SW Engineering\Eng Ahmed Hosny mentorship\Linear Structures\x64\Debug\Linear Structures.exe
+E:\SW Engineering\Eng Ahmed Hosny mentorship\Linear Structures\Linear Structures\Stack.h(10): error C4700: uninitialized local variable 'it' used
