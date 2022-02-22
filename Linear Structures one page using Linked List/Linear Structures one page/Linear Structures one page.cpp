@@ -1,6 +1,7 @@
 //#include <bits/stdc++.h>
 #include <iostream>
 using namespace std;
+// singly linked list implementation ____________________________________________________________________________
 class Node {
 public:
 	int data;
@@ -74,6 +75,78 @@ public:
 		}
 	}
 };
+// doubly linked list implementation ______________________________________________________________________________
+template <class ListItemType>
+class DoublyLinkedListNode {
+public:
+	int data;
+	DoublyLinkedListNode* next;
+	DoublyLinkedListNode* prev;
+
+	DoublyLinkedListNode(ListItemType node_data) {
+		this->data = node_data;
+		this->next = nullptr;
+		this->prev = nullptr;
+	}
+};
+template <class ListItemType>
+class DoublyLinkedList {
+public:
+	DoublyLinkedListNode* head;
+	DoublyLinkedListNode* tail;
+	DoublyLinkedList() {
+		this->head = nullptr;
+		this->tail = nullptr;
+	}
+	DoublyLinkedList* GetNewNode(ListItemType n)
+	{
+		DoublyLinkedList* newNode = new DoublyLinkedList();
+		newNode->data = n;
+		newNode->next = NULL;
+		newNode->prev = NULL;
+		return newNode;
+	}
+	void InsertAtHead(ListItemType n)
+	{
+		DoublyLinkedListNode* temp = GetNewNode(n);
+		if (head == NULL)
+		{
+			head = temp;
+			return;
+		}
+		head->prev = temp;
+		temp->next = head;
+		head = temp;
+	}
+	void print()
+	{
+		DoublyLinkedListNode* t = head;
+		cout << "Forward: ";
+		while (t != NULL)
+		{
+			cout << t->data << " ";
+			t = t->next;
+		}
+		cout << "\n";
+	}
+	void print_reverse()
+	{
+		DoublyLinkedListNode* t = head;
+		while (t->next != NULL)
+		{
+			t = t->next;
+		}
+		//reverse
+		cout << "reverse: ";
+		while (t != NULL)
+		{
+			cout << t->data << " ";
+			t = t->prev;
+		}
+		cout << "\n";
+	}
+};
+// Stack implementation_____________________________________________________________________________________________ 
 template <class ListItemType>
 class Stack {
 	Node* top;
@@ -106,7 +179,7 @@ public:
 		return top->data;
 	}
 };
-
+// Queues implementation_____________________________________________________________________________________________
 template <class ListItemType>
 class Queues {
 public : 
@@ -160,7 +233,6 @@ public :
 		}
 		cout << endl; 
 	}
-
 };
 int main()
 {

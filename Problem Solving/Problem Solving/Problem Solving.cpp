@@ -235,7 +235,6 @@ SinglyLinkedListNode* removeDuplicates(SinglyLinkedListNode* head) {
         }
     }
     return head;
-
 }
 // has_cycle function 
 
@@ -278,7 +277,6 @@ public:
         this->head = nullptr;
         this->tail = nullptr;
     }
-
     void insert_node(int node_data) {
         DoublyLinkedListNode* node = new DoublyLinkedListNode(node_data);
 
@@ -395,7 +393,43 @@ DoublyLinkedListNode* reverse(DoublyLinkedListNode* head) {
     head = ptr1;
     return head;
 }
-
+class Node {
+public:
+    int data;
+    Node* next;
+};
+template <class ListItemType>
+class Stack {
+    Node* top;
+public:
+    bool  isEmpty() { return top == NULL; }
+    void push(ListItemType data) {
+        Node* it = new Node();
+        it->data = data;
+        it->next = top;
+        top = it;
+    }
+    int pop() {
+        if (isEmpty()) return 0;
+        Node* temp = top;
+        ListItemType item = temp->data;
+        top = top->next;
+        delete temp;
+        return item;
+    }
+    void display() {
+        Node* temp = top;
+        while (temp != NULL) {
+            cout << temp->data << "  ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+    int peek() {
+        if (isEmpty()) return 0;
+        return top->data;
+    }
+};
 int main()
 {
     
@@ -819,6 +853,30 @@ int main()
 //}
 //
 //fout.close();
+
+
+//int t; cin >> t;
+//Stack <int> s;
+//while (t--) {
+//    int c; cin >> c;
+//    if (c == 1) {
+//        int input; cin >> input;
+//        s.push(input);
+//    }
+//    else if (c == 2) {
+//        s.pop();
+//    }
+//    else if (c == 3) {
+//        cout << s.peek() << endl;
+//    }
+//}
+
+
+
+
+
+
+
 
 
 	return 0; 
