@@ -1,23 +1,31 @@
 //#include <bits/stdc++.h>
 #include <iostream>
 using namespace std;
+template <class ListItemType>
 // singly linked list implementation ____________________________________________________________________________
 class Node {
 public:
-	int data;
+	ListItemType data;
 	Node* next;
+	Node() {
+		data = NULL;
+		next = NULL;
+	}
+	Node(ListItemType data) {
+		this->data = data;
+		this->next = NULL;
+	}
 };
 template <class ListItemType>
 class Linkedlist : public Node {
 public:
-	Node* head;
+	Node<ListItemType>* head;
 	int listSize = 0;
 	Linkedlist() { head = NULL; }
-	inline bool isEmpty() { return head == NULL; }
-	void push(ListItemType newData) {
-		Node* newNode = new Node();
-		newNode->data = newData;
-		if (isEmpty()) {
+	// Methods 
+	void pushFront(ListItemType newData) {
+		Node<ListItemType>* newNode = new Node(newData);
+		if (Empty()) {
 			newNode->next = NULL;
 			head = newNode;
 		}
@@ -27,39 +35,50 @@ public:
 		}
 		listSize++;
 	} // add to first '
-	void insertAfter(Node* prevNode, ListItemType newData) {
-		if (prevNode == NULL) return;
-		Node* newNode = new Node();   // Allocate new node 
-		newNode->data = newData;      // Put in the data 
-		newNode->next = prevNode->next;  // Make next of new node as next of prev_node
-		prevNode->next = newNode;       // move the next of prev_node as new_node 
-		listSize++;
-	}// add after current element 
-	void append(Node** head_ref, ListItemType new_data)
+	ListItemType topFront() { return head; }
+	void popfront() {
+		head->next = head;
+		delete head;
+		listSize--;
+	}
+	void append(ListItemType it)
 	{
-		Node* new_node = new Node();  // 1. allocate node      
-		Node* last = *head_ref;       // Used in step 5 
-		new_node->data = new_data;   // 2. Put in the data
-		new_node->next = NULL;       // 3. This new node is going to be the last node, so make next of it as NULL 
-		if (*head_ref == NULL)       // 4. If the Linked List is empty, then make the new node as head 
-		{
-			*head_ref = new_node;
-			return;
+		Node<ListItemType>* newNode = new Node(it);
+		Node* curr = head;
+		while (curr->next != NULL) {
+			curr = curr->next;
 		}
-		while (last->next != NULL)   // 5. Else traverse till the last node 
-		{
-			last = last->next;
-		}
-		last->next = new_node;       // 6. Change the next of last node 
-		return;
+		curr->next = newNode;
 		listSize++;
 	} // add after last element 
-	int length() { return listSize; }    // Return list length 
-
-	void deleteNode(Node* head, int position) {
+	ListItemType topBack() {
+		Node* curr = head;
+		while (curr->next != NULL)
+		{
+			curr = curr->next;
+		}
+		return curr;
+	}
+	void popBack() {
+		Node* curr = head;
+		while (curr->next != NULL) {
+			curr = curr->next;
+		}
+		delete curr;
+		listSize--;
+	}
+	bool Find(ListItemType it) {
+		Node* curr = head;
+		while (curr->next != NULL) {
+			return curr->data == it;
+			curr = curr->next;
+		}
+	}
+	void Erase(int position) {
 		if (position == 0) {
 			Node* curr = head->next;
 			delete head;
+			listSize--;
 			head = curr;
 			return head;
 		}
@@ -71,7 +90,38 @@ public:
 			Node* temp = curr->next;
 			curr->next = temp->next;
 			delete temp;
+			listSize--;
 			return head;
+		}
+	}
+	inline bool Empty() { return head == NULL; }
+	void addBefore(Node* nextNode, ListItemType it) {
+		Node<ListItemType>* it = new Node(it);
+		Node* curr = head;
+		while (curr->next != nextNode) {
+			curr = curr->next;
+		}
+		Node* pointTonextNode = nextNode;
+		curr->next = it;
+		it->next = pointTonextNode;
+		listSize++;
+	}
+	void addAfter(Node* prevNode, ListItemType newData) {
+		if (prevNode == NULL) return;
+		Node<ListItemType>* newNode = new Node(newData);   // Allocate new node  & Put in the data 
+		newNode->next = prevNode->next;  // Make next of new node as next of prev_node
+		prevNode->next = newNode;       // move the next of prev_node as new_node 
+		listSize++;
+	}// add after current element 
+	int length() { return listSize; }    // Return list length 
+	void print() {
+		if (head == NULL) {
+			return;
+		}
+		Node* curr = head;
+		while (curr != NULL) {
+			cout << curr->data << "  ";
+			curr = curr->next;
 		}
 	}
 };
@@ -79,7 +129,7 @@ public:
 template <class ListItemType>
 class DoublyLinkedListNode {
 public:
-	int data;
+	ListItemType data;
 	DoublyLinkedListNode* next;
 	DoublyLinkedListNode* prev;
 
@@ -90,45 +140,121 @@ public:
 	}
 };
 template <class ListItemType>
-class DoublyLinkedList {
+class DoublyLinkedList : public DoublyLinkedListNode  {
 public:
 	DoublyLinkedListNode* head;
 	DoublyLinkedListNode* tail;
+	int listSize = 0;
 	DoublyLinkedList() {
 		this->head = nullptr;
 		this->tail = nullptr;
 	}
-	DoublyLinkedList* GetNewNode(ListItemType n)
+	void pushFront(ListItemType it)
 	{
-		DoublyLinkedList* newNode = new DoublyLinkedList();
-		newNode->data = n;
-		newNode->next = NULL;
-		newNode->prev = NULL;
-		return newNode;
-	}
-	void InsertAtHead(ListItemType n)
-	{
-		DoublyLinkedListNode* temp = GetNewNode(n);
+		DoublyLinkedListNode* newNode = GetNewNode(it);
 		if (head == NULL)
 		{
-			head = temp;
+			head = newNode;
 			return;
 		}
-		head->prev = temp;
-		temp->next = head;
-		head = temp;
+		head->prev = newNode;
+		newNode->next = head;
+		head = newNode;
+		listSize++;
 	}
-	void print()
-	{
-		DoublyLinkedListNode* t = head;
-		cout << "Forward: ";
-		while (t != NULL)
-		{
-			cout << t->data << " ";
-			t = t->next;
+	ListItemType topFront() { return head; }
+	void popfront() {
+		head->next = head;
+		delete head;
+		listSize--;
+	}
+	void append(ListItemType it) {
+		DoublyLinkedListNode* newNode = DoublyLinkedListNode(it);
+		if ( head == NULL && tail == NULL) {
+			head = tail = newNode; 
+			newNode->prev = NULL;
+			listSize++;
 		}
-		cout << "\n";
+		else{
+			tail->next = newNode; 
+			newNode->prev = tail; 
+			tail = newNode; 
+			listSize++;
+		}
 	}
+	ListItemType topBack() { return tail;  }
+	void popBack() {
+		tail->prev = tail; 
+		delete tail; 
+		tail = tail->prev;
+	}
+	bool Find(ListItemType it) {
+		Node* curr = head;
+		while (curr != NULL ) {
+			return curr->data == it;
+			curr = curr->next;
+		}
+	}
+	void Erase(int position) {
+		if (position == 0) {
+			Node* curr = head->next;
+			delete head;
+			head = curr;
+			listSize--;
+			return head;
+		}
+		else {
+			Node* curr = head;
+			for (int i = 0; i < position - 1; i++) {
+				curr = curr->next;
+			}
+			Node* temp = curr->next;
+			curr->next = temp->next;
+			delete temp;
+			listSize--;
+			return head;
+		}
+	}
+	inline bool Empty() { return (head == NULL && tail == NULL); }
+	void addBefore(DoublyLinkedListNode* nextNode, ListItemType it){
+		DoublyLinkedListNode* newNode = new DoublyLinkedListNode(it); 
+		if (Empty()) {
+			head = tail = newNode; 
+		}
+		if ( nextNode == head) {
+			pushFront();
+		}
+		DoublyLinkedListNode* temp; 
+		temp = nextNode->prev; 
+		nextNode->prev = newNode; 
+		temp->next = newNode; 
+		listSize++;
+	}
+	void addAfter(Node* prevNode, ListItemType it) {
+		DoublyLinkedListNode* newNode = new DoublyLinkedListNode(it);
+		if (Empty()) {
+			head = tail = newNode;
+		}
+		if (prevNode == tail) {
+			append();
+		}
+		DoublyLinkedListNode* temp;
+		temp = prevNode->next;
+		prevNode->next = newNode; 
+		temp->prev = newNode; 
+		listSize++;
+	}
+	void print() {
+		if (head == NULL && tail == NULL ) {
+			cout << " The list is Empty \n";
+		}
+		Node* curr = head;
+		while (curr != NULL) {
+			cout << curr->data << "  ";
+			curr = curr->next;
+		}
+	}
+	int length() { return listSize; }    // Return list length 
 	void print_reverse()
 	{
 		DoublyLinkedListNode* t = head;
@@ -150,13 +276,17 @@ public:
 template <class ListItemType>
 class Stack {
 	Node* top;
+	int stacksize = 0; 
 public:
-	bool  isEmpty() { return top == NULL; }
-	void push(ListItemType data) {
-		Node* it = new Node(); 
-		it->data = data;
+	void push(ListItemType it) {
+		Node* it = new Node(it);
 		it->next = top;
 		top = it;
+		stacksize++; 
+	}
+	int peek() {
+		if (isEmpty()) return 0;
+		return top->data;
 	}
 	int pop() {
 		if (isEmpty()) return 0;
@@ -164,8 +294,10 @@ public:
 		ListItemType item = temp->data;
 		top = top->next;
 		delete temp;
+		stacksize--;
 		return item;
 	}
+	bool  isEmpty() { return top == NULL; }
 	void display() {
 		Node* temp = top;
 		while (temp != NULL) {
@@ -174,10 +306,8 @@ public:
 		}
 		cout << endl;
 	}
-	int peek() {
-		if (isEmpty()) return 0;
-		return top->data;
-	}
+	int length() { return stacksize;  }
+	
 };
 // Queues implementation_____________________________________________________________________________________________
 template <class ListItemType>
@@ -191,8 +321,7 @@ public :
 	}
 
 	void Enqueue(ListItemType data) {
-		Node* it = new Node();
-		it->data = data; 
+		Node* it = new Node(data);
 		if (isEmpty()) {
 			head = it; 
 			tail = it; 
@@ -212,7 +341,6 @@ public :
 		Node* temp = head; 
 		head = head->next; 
 		delete temp; 
-
 		Queuesize--;
 	}
 	bool isEmpty() { return (head == NULL && tail == NULL); }
@@ -224,7 +352,7 @@ public :
 			Dequeue();
 		}
 	} 
-	void display() {
+	void print() {
 		if (isEmpty()) { cout << "Queue is empty  \n"; }
 		Node* curr = head; 
 		while (curr != NULL) {
