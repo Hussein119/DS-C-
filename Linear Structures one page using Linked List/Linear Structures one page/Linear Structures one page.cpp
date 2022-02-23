@@ -300,13 +300,14 @@ public:
 	bool  isEmpty() { return top == NULL; }
 	void display() {
 		Node* temp = top;
-		while (temp != NULL) {
+		for (int i = 0; i < stacksize; i++) {
 			cout << temp->data << "  ";
 			temp = temp->next;
 		}
 		cout << endl;
 	}
 	int length() { return stacksize;  }
+	
 	
 };
 // Queues implementation_____________________________________________________________________________________________

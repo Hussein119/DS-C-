@@ -176,11 +176,13 @@ public :
     bool isFull() {
         return size() == Queuecapacity;
     }
+
 };
 int main()
 {
 
- 
+    
+    
 
 
 
