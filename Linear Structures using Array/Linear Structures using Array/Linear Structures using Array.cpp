@@ -110,7 +110,7 @@ public :
         return 0; 
     }
     int size() {
-        return top + 1; 
+        return top + 1;  // Zero based 
     }
     bool isEmpty() {
         return size() == 0; 
@@ -138,7 +138,6 @@ public :
     ~Queue() {
         delete[] arr; 
     }
-
     void enqueue(ListItemType it ) {
         if (isFull()) {
             cout << "Overflow \n ";
@@ -176,7 +175,6 @@ public :
     bool isFull() {
         return size() == Queuecapacity;
     }
-
 };
 int main()
 {
