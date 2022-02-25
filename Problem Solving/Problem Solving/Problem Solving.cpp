@@ -532,6 +532,38 @@ int stack2[99999];
 int stack3[99999];
 
 
+// game-of-two-stacks 
+int twoStacks(int maxSum, int l1 , int l2, vector<int> a, vector<int> b) {
+    int result = 0 , st1counter = 0, st2counter = 0, sum = 0; 
+
+    // get elements form first stack 
+    for (int i = 0; i < l1; i++) {
+        if (sum + a[i] > maxSum) {
+            break;
+        }
+        sum += a[i];
+        st1counter++;
+    }
+    result = st1counter; 
+
+    // get elements form second stack 
+
+    for (int i = 0; i < l2; i++) {
+        sum += b[i];
+        st2counter++;
+        while (sum > maxSum && st1counter > 0) {
+            sum -= a.at(st1counter - 1);
+            st1counter--;
+        }
+        if (sum <= maxSum) {
+            result = max((st1counter + st2counter), result);
+        }
+
+    }
+    return result; 
+
+}
+
 
 
 
@@ -1018,6 +1050,24 @@ int main()
 //cout << equalStacks(stack1, stack2, stack3, n1, n2, n3) << endl;
 
 
+
+//// game-of-two-stacks 
+//int t; cin >> t; 
+//for (int i = 0; i < t; i++) {
+//    vector <int> s1;
+//    vector <int> s2;
+//    int l1, l2, maxx;
+//    cin >> l1 >> l2 >> maxx; 
+//    for (int i = 0; i < l1; i++) {
+//        int x1; cin >> x1; 
+//        s1.push_back(x1);
+//    }
+//    for (int i = 0; i < l2; i++) {
+//        int x2; cin >> x2;
+//        s2.push_back(x2);
+//    }
+//    cout << twoStacks(maxx,l1,l2 ,s1, s2) << endl;
+//}
 
 
 
