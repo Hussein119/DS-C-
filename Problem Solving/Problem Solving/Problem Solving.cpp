@@ -1,5 +1,6 @@
-#include <iostream>
-using namespace std; 
+#include <bits/stdc++.h>
+#include "Problem Solving.h"
+using namespace std;
 class SinglyLinkedListNode {
 public:
     int data;
@@ -430,6 +431,110 @@ public:
         return top->data;
     }
 };
+
+// Check for Balanced Brackets 
+void isBalanced(string s) {
+    stack <char> br;
+    int size = s.size();
+    char temp;
+    if (size % 2 == 1) {
+        cout << "NO\n";
+        return;
+    }
+    for (int i = 0; i < size; i++) {
+        if (s[i] == '(' || s[i] == '{' || s[i] == '[') {
+            br.push(s[i]);
+        }
+        if (br.empty()) {
+            cout << "NO\n";
+            return;
+        }
+        if (s[i] == ')') {
+            temp = br.top();
+            br.pop();
+            if (temp == '{' || temp == '[')
+            {
+                cout << "NO\n";
+                return;
+            }
+        }
+        if (s[i] == ']') {
+            temp = br.top();
+            br.pop();
+            if (temp == '{' || temp == '(')
+            {
+                cout << "NO\n";
+                return;
+            }
+        }
+        if (s[i] == '}') {
+            temp = br.top();
+            br.pop();
+            if (temp == '(' || temp == '[')
+            {
+                cout << "NO\n";
+                return;
+            }
+        }
+    }
+    if (br.empty())
+    {
+        cout << "YES\n";
+        return;
+    }
+    else {
+        cout << "NO\n";
+        return;
+    }
+}
+
+// Returns maximum possible equal sum of three stacks
+// with removal of top elements allowed
+int equalStacks(int stack1[], int stack2[], int stack3[], int n1, int n2, int n3)
+{
+    int sum1 = 0, sum2 = 0, sum3 = 0;
+
+    // Finding the initial sum of stack1.
+    for (int i = 0; i < n1; i++)
+        sum1 += stack1[i];
+
+    // Finding the initial sum of stack2.
+    for (int i = 0; i < n2; i++)
+        sum2 += stack2[i];
+
+    // Finding the initial sum of stack3.
+    for (int i = 0; i < n3; i++)
+        sum3 += stack3[i];
+
+    // As given in question, first element is top of stack..
+    int top1 = 0, top2 = 0, top3 = 0;
+    while (1) {
+        // If any stack is empty
+        if (top1 == n1 || top2 == n2 || top3 == n3)
+            return 0;
+
+        // If sum of all three stack are equal.
+        if (sum1 == sum2 && sum2 == sum3)
+            return sum1;
+
+        // Finding the stack with maximum sum and removing its top element.
+        if (sum1 >= sum2 && sum1 >= sum3)
+            sum1 -= stack1[top1++];
+        else if (sum2 >= sum1 && sum2 >= sum3)
+            sum2 -= stack2[top2++];
+        else if (sum3 >= sum2 && sum3 >= sum1)
+            sum3 -= stack3[top3++];
+    }
+}
+// https://ideone.com/GElF9q  // test 
+int stack1[99999];
+int stack2[99999];
+int stack3[99999];
+
+
+
+
+
 int main()
 {
     
@@ -872,7 +977,45 @@ int main()
 //}
 
 
+// isBalanced brackets 
+//int t; cin >> t;
+//for (int i = 0; i < t; i++) {
+//    string s;
+//    cin >> s;
+//    isBalanced(s);
+//}
 
+//int n1, n2, n3;
+//cin >> n1; cin >> n2; cin >> n3;
+//int x1;
+//for (int i = 0; i < n1; i++) {
+//    cin >> x1;
+//}
+//int x2;
+//for (int i = 0; i < n2; i++) {
+//    cin >> x2;
+//}
+//int x3;
+//for (int i = 0; i < n3; i++) {
+//    cin >> x3;
+//}
+//cout << equalStacks(n1, n2, n3);
+
+// equal-stacks 
+//int n1; cin >> n1;
+//int n2; cin >> n2;
+//int n3; cin >> n3;
+//
+//for (int i = 0; i < n1; i++) {
+//    cin >> stack1[i];
+//}
+//for (int i = 0; i < n2; i++) {
+//    cin >> stack2[i];
+//}
+//for (int i = 0; i < n3; i++) {
+//    cin >> stack3[i];
+//}
+//cout << equalStacks(stack1, stack2, stack3, n1, n2, n3) << endl;
 
 
 
