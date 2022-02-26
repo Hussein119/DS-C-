@@ -564,6 +564,90 @@ int twoStacks(int maxSum, int l1 , int l2, vector<int> a, vector<int> b) {
 
 }
 
+// queue-using-two-stacks 
+template <class ListItemType>
+// A class to store a queue
+class Queue {
+    ListItemType* arr;
+    int Queuecapacity;
+    int head;
+    int tail;
+    int count;
+public:
+    Queue(int Queuesize) {
+        arr = new ListItemType[Queuesize];
+        Queuecapacity = Queuesize;
+        head = 0;
+        tail = -1;
+        count = 0;
+    }
+    ~Queue() {
+        delete[] arr;
+    }
+    void enqueue(ListItemType it) {
+        if (isFull()) {
+            cout << "Overflow \n ";
+            return;
+        }
+        //cout << "Inserting : " << it << endl; 
+        tail = (tail + 1) % Queuecapacity;
+        arr[tail] = it;
+        count++;
+    }
+    int dequeue() {
+        if (isEmpty()) {
+            cout << "Underflow" << endl;
+            return 0;
+        }
+        ListItemType temp = arr[head];
+        // cout << "Removing " << temp << endl;
+        head = (head + 1) % Queuecapacity;
+        count--;
+        return temp;
+    }
+    int peek() {
+        if (isEmpty()) {
+            cout << "Underflow\n";
+            return 0;
+        }
+        return arr[head];
+    }
+    int size() {
+        return count;
+    }
+    bool isEmpty() {
+        return size() == 0;
+    }
+    bool isFull() {
+        return size() == Queuecapacity;
+    }
+};
+Queue<int> Q(9999999);
+
+
+// largest-rectangle/problem 
+long largestRectangle(vector<int> h) {
+    int size = h.size();
+    stack <int> s;
+    long maxarea = 0;
+    for (int i = 0; i <= size; i++) {
+        while (!s.empty() && (i == size || (h[s.top()] >= h[i]))) {
+            long height = h[s.top()];
+            s.pop();
+            long width; 
+            if (s.empty()) width = i;
+            else width = i - s.top() - 1;
+            maxarea = max(maxarea, width * height);
+        }
+        s.push(i);
+    }
+    return maxarea;
+}
+
+
+
+
+
 
 
 
@@ -1068,6 +1152,25 @@ int main()
 //    }
 //    cout << twoStacks(maxx,l1,l2 ,s1, s2) << endl;
 //}
+
+//// queue-using-two-stacks 
+//int numberOfqueries; cin >> numberOfqueries;
+//int process;
+//while (numberOfqueries--) {
+//    cin >> process;
+//    if (process == 1) {
+//        int data; cin >> data;
+//        Q.enqueue(data);
+//    }
+//    if (process == 2) {
+//        Q.dequeue();
+//    }
+//    if (process == 3) {
+//        cout << Q.peek() << endl;
+//    }
+//}
+ 
+
 
 
 

@@ -143,7 +143,7 @@ public :
             cout << "Overflow \n ";
             return; 
         }
-        cout << "Inserting : " << it << endl; 
+        //cout << "Inserting : " << it << endl; 
         tail = (tail + 1) % Queuecapacity; 
         arr[tail] = it; 
         count++; 
@@ -154,7 +154,7 @@ public :
             return 0; 
         }
         ListItemType temp = arr[head];
-        cout << "Removing " << temp << endl;
+       // cout << "Removing " << temp << endl;
         head = (head + 1) % Queuecapacity; 
         count--; 
         return temp; 
@@ -179,7 +179,7 @@ public :
 int main()
 {
 
-    
+   
     
 
 

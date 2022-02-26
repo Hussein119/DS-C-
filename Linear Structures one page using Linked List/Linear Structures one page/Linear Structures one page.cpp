@@ -317,10 +317,10 @@ public :
 	Node* head;
 	Node* tail;
 	int Queuesize = 0;
+public : 
 	Queues() {
 		head = tail = NULL; 
 	}
-
 	void Enqueue(ListItemType data) {
 		Node* it = new Node(data);
 		if (isEmpty()) {
@@ -366,7 +366,7 @@ public :
 int main()
 {
 	
-
+	
 
 
 
