@@ -242,6 +242,10 @@ int main()
 //delete ptr; // no brackets following delete
 //delete[] str; // deleting array 
 
+//int x = 10;
+//void* i;
+//i = &x;
+////cout << *i << endl; // error 
 
 
 

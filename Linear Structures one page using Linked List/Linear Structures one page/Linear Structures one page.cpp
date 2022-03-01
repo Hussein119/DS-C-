@@ -17,7 +17,7 @@ public:
 	}
 };
 template <class ListItemType>
-class Linkedlist : public Node {
+class Linkedlist{
 public:
 	Node<ListItemType>* head;
 	int listSize = 0;
@@ -365,7 +365,7 @@ public :
 };
 int main()
 {
-	
+	Stack<int>s;
 	
 
 
