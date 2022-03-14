@@ -250,6 +250,31 @@ int main()
 
 
 
+int* p1; 
+int number = 303; 
+p1 = & number; 
+cout << number + +3 << endl; 
+cout << ++number+ 3 + +number+++3 << endl; 
+
+//int* p1 = new int; 
+//*p1 = 505; 
+//int** p2 = &p1; 
+//cout << p2 << "  " << &p1 << "  ";
+//int*** p3 = &p2; 
+//cout << p3 << "  " << &p2;
+
+
+
+
+
+
+
+
+
+
+
+
+
     return 0; 
 }
 

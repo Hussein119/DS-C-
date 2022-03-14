@@ -95,7 +95,7 @@ public:
 		}
 	}
 	inline bool Empty() { return head == NULL; }
-	void addBefore(Node* nextNode, ListItemType it) {
+	void addBefore(Node<ListItemType>* nextNode, ListItemType it) {
 		Node<ListItemType>* it = new Node(it);
 		Node* curr = head;
 		while (curr->next != nextNode) {
@@ -106,7 +106,7 @@ public:
 		it->next = pointTonextNode;
 		listSize++;
 	}
-	void addAfter(Node* prevNode, ListItemType newData) {
+	void addAfter(Node<ListItemType>* prevNode, ListItemType newData) {
 		if (prevNode == NULL) return;
 		Node<ListItemType>* newNode = new Node(newData);   // Allocate new node  & Put in the data 
 		newNode->next = prevNode->next;  // Make next of new node as next of prev_node
@@ -140,10 +140,10 @@ public:
 	}
 };
 template <class ListItemType>
-class DoublyLinkedList : public DoublyLinkedListNode  {
+class DoublyLinkedList : public DoublyLinkedListNode<ListItemType>  {
 public:
-	DoublyLinkedListNode* head;
-	DoublyLinkedListNode* tail;
+	DoublyLinkedListNode<ListItemType>* head;
+	DoublyLinkedListNode<ListItemType>* tail;
 	int listSize = 0;
 	DoublyLinkedList() {
 		this->head = nullptr;
@@ -169,7 +169,7 @@ public:
 		listSize--;
 	}
 	void append(ListItemType it) {
-		DoublyLinkedListNode* newNode = DoublyLinkedListNode(it);
+		DoublyLinkedListNode<ListItemType>* newNode = DoublyLinkedListNode<ListItemType>(it);
 		if ( head == NULL && tail == NULL) {
 			head = tail = newNode; 
 			newNode->prev = NULL;
@@ -216,7 +216,7 @@ public:
 		}
 	}
 	inline bool Empty() { return (head == NULL && tail == NULL); }
-	void addBefore(DoublyLinkedListNode* nextNode, ListItemType it){
+	void addBefore(DoublyLinkedListNode<ListItemType>* nextNode, ListItemType it){
 		DoublyLinkedListNode* newNode = new DoublyLinkedListNode(it); 
 		if (Empty()) {
 			head = tail = newNode; 
@@ -230,8 +230,8 @@ public:
 		temp->next = newNode; 
 		listSize++;
 	}
-	void addAfter(Node* prevNode, ListItemType it) {
-		DoublyLinkedListNode* newNode = new DoublyLinkedListNode(it);
+	void addAfter(Node<ListItemType>* prevNode, ListItemType it) {
+		DoublyLinkedListNode<ListItemType>* newNode = new DoublyLinkedListNode(it);
 		if (Empty()) {
 			head = tail = newNode;
 		}
@@ -275,7 +275,7 @@ public:
 // Stack implementation_____________________________________________________________________________________________ 
 template <class ListItemType>
 class Stack {
-	Node* top;
+	Node<ListItemType>* top;
 	int stacksize = 0; 
 public:
 	void push(ListItemType it) {
@@ -314,8 +314,8 @@ public:
 template <class ListItemType>
 class Queues {
 public : 
-	Node* head;
-	Node* tail;
+	Node<ListItemType>* head;
+	Node<ListItemType>* tail;
 	int Queuesize = 0;
 public : 
 	Queues() {
@@ -365,7 +365,7 @@ public :
 };
 int main()
 {
-	Stack<int>s;
+	
 	
 
 
