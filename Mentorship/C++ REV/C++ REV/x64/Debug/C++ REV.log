@@ -1,2 +1,4 @@
 ﻿  C++ REV.cpp
-  C++ REV.vcxproj -> E:\SW Engineering\Mentorship\C++ REV\x64\Debug\C++ REV.exe
+C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(700,5): error MSB6006: "CL.exe" exited with code 2.
+E:\SW Engineering\Mentorship\C++ REV\C++ REV\C++ REV.cpp(277,12): error C2440: '=': cannot convert from 'const char [6]' to 'size_t'
+E:\SW Engineering\Mentorship\C++ REV\C++ REV\C++ REV.cpp(277,5): message : There is no context in which this conversion is possible

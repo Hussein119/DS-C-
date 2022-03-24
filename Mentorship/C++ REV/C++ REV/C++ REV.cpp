@@ -1,6 +1,12 @@
 #include <bits/stdc++.h>
 #include <cstring> //for strlen
 using namespace std; 
+
+
+//template < class t, size_t size >
+
+
+
 int main()
 {
 
@@ -250,11 +256,11 @@ int main()
 
 
 
-int* p1; 
-int number = 303; 
-p1 = & number; 
-cout << number + +3 << endl; 
-cout << ++number+ 3 + +number+++3 << endl; 
+//int* p1; 
+//int number = 303; 
+//p1 = & number; 
+//cout << number + +3 << endl; 
+//cout << ++number+ 3 + +number+++3 << endl; 
 
 //int* p1 = new int; 
 //*p1 = 505; 
@@ -263,10 +269,14 @@ cout << ++number+ 3 + +number+++3 << endl;
 //int*** p3 = &p2; 
 //cout << p3 << "  " << &p2;
 
-
-
-
-
+//
+//#pragma once: The #pragma once directive has a very simple concept.
+//The header file containing this directive is included only once even
+//if the programmer includes it multiple times during a compilation. 
+//This is not included in any ISO C++ standard. This directive works similar to the #include guard idiom.
+//Use of #pragma once saves the program from multiple inclusion optimisation.
+//Syntax :
+//#pragma once
 
 
 
@@ -324,3 +334,6 @@ void order(int* numb1, int* numb2) //orders two numbers
 //450
 //elements pointed to by ptr + j and ptr + k are compared, using the order() function, and if the
 //first is greater than the second, they’re swapped.Figure 10.9 shows this process.
+
+
+
